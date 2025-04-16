@@ -30,8 +30,8 @@ internal class Program
 
         if (tamanhoDiamante <= 0 || tamanhoDiamante % 2 == 0)
         {
-            Console.WriteLine("O número deve ser ímpar e positivo!");
-            return 0;
+            Console.WriteLine("O número deve ser ímpar e positivo. \nTente novamente!");
+            return ObterTamanhoDoDiamante();
         }
 
         return tamanhoDiamante;
