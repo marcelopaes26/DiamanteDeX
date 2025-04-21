@@ -1,72 +1,47 @@
 namespace DiamanteDeX;
 
-public static class GeradorDeDiamante
+public class GeradorDeDiamante
 {
-    static int quantidadeDeLinhas;
-    static int quantidadeDeX;
-    static int quantidadeDeEspacos;
+    static int espaco = 0;
+    static int diferenca = 2;
+    static List<string> listaDiamante;
 
-    public static void DesenharDiamante(int tamanhoDoDiamante)
+    public int ObterTamanhoDoDiamante()
     {
-        quantidadeDeLinhas = (tamanhoDoDiamante - 1) / 2;
-        quantidadeDeX = 1;
-        quantidadeDeEspacos = quantidadeDeLinhas;
+        Console.Write("Digite um número ímpar e positivo: ");
+        int tamanhoDiamante = Convert.ToInt32(Console.ReadLine());
 
-        DesenharParteSuperior();
+        if (tamanhoDiamante <= 0 || tamanhoDiamante % 2 == 0)
+        {
+            Console.WriteLine("O número deve ser ímpar e positivo. \nTente novamente!");
+            return ObterTamanhoDoDiamante();
+        }
 
-        DesenharParteDoMeio(tamanhoDoDiamante);
+        listaDiamante = new List<string> {new string('x', tamanhoDiamante)};
 
-        DesenharParteInferior();
+        return tamanhoDiamante;
     }
 
-    public static void DesenharParteSuperior()
+    public void DesenharDiamante(int tamanhoDiamante)
     {
-        Console.WriteLine();
-
-        for (int linha = 0; linha < quantidadeDeLinhas; linha++)
+        while (true)
         {
-            // Desenhar os espaços da linha
-            for (int espaco = 0; espaco < quantidadeDeEspacos; espaco++)
-                Console.Write(" ");
+            tamanhoDiamante -= diferenca;
 
-            // Desenhar os x da linha
-            for (int x = 0; x < quantidadeDeX; x++)
-                Console.Write("x");
+            if (tamanhoDiamante <= 0)
+            {
+                break;
+            }
 
-            quantidadeDeX += 2;
-            quantidadeDeEspacos--;
-
-            Console.WriteLine();
+            espaco += diferenca;
+            string quantidade = $"{new string (' ', espaco / 2)}{new string ('x', tamanhoDiamante)}{new string (' ', espaco / 2)}";
+            listaDiamante.Insert(0, quantidade);
+            listaDiamante.Add(quantidade);            
+        }
+        foreach (string x in listaDiamante)
+        {
+            Console.WriteLine(x);
         }
     }
 
-    public static void DesenharParteDoMeio(int tamanhoDiamante)
-    {
-        for (int x = 0; x < tamanhoDiamante; x++)
-            Console.Write("x");
-
-        Console.WriteLine();
-    }
-
-    public static void DesenharParteInferior()
-    {
-        quantidadeDeX -= 2;
-        quantidadeDeEspacos = 1;
-
-        for (int linha = 0; linha < quantidadeDeLinhas; linha++)
-        {
-            // Desenhar os espaços da linha
-            for (int espaco = 0; espaco < quantidadeDeEspacos; espaco++)
-                Console.Write(" ");
-
-            // Desenhar os x da linha
-            for (int x = 0; x < quantidadeDeX; x++)
-                Console.Write("x");
-
-            quantidadeDeX -= 2;
-            quantidadeDeEspacos++;
-
-            Console.WriteLine();
-        }
-    }
 }
